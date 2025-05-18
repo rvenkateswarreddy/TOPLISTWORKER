@@ -1,0 +1,49 @@
+{
+	"name": "travel-tool-worker",
+	"main": "src/index.js",
+	"compatibility_date": "2023-08-16",
+	"env": {
+		"production": {
+			"workers_dev": false,
+			"zone_id": "YOUR_ZONE_ID",
+			"routes": ["traveltool.x/*", "*.traveltool.x/*"]
+		}
+	},
+	"vars": {
+		"API_BASE_URL": "https://www.reseguiden.se",
+		"FALLBACK_ORIGIN": "https://traveltool-worker.your-account.workers.dev",
+		"DEFAULT_LIMIT": "10",
+		"CACHE_TTL": "300"
+	},
+	"kv_namespaces": [
+		{
+			"binding": "DOMAINS",
+			"id": "5d6ba3aa4ae24af4992a5cdeb6da04c8",
+			"preview_id": "a55b0ea59f6b44e9838beba1ae3d2426"
+		},
+		{
+			"binding": "AFFILIATES",
+			"id": "1145a80cd68b4553a4f74444035ddfa0",
+			"preview_id": "1ad0fb16efba46e9937d0cf91c8865d5"
+		},
+		{
+			"binding": "TOP_LIST_CACHE",
+			"id": "81bdc590e5cb4d86861cac7f19b4b7bf",
+			"preview_id": "36275ce1335041bcaf340ce57ee03bb7"
+		}
+	],
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "RATE_LIMITER",
+				"class_name": "RateLimiter"
+			}
+		]
+	},
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_classes": ["RateLimiter"]
+		}
+	]
+}
